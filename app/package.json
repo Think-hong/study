@@ -7,11 +7,13 @@
     "study": "www.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1"
   },
   "devDependencies": {},
   "scripts": {
+    "start": "nodemon --w --experimental-modules ./bin/www.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
