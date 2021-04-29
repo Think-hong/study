@@ -1,19 +1,25 @@
 
 
 const id = document.querySelector("#id");
+const name = document.querySelector("#name");
 const password = document.querySelector("#password");
-const loginbtn = document.querySelector("button");
+const confirmPassword = document.querySelector("#password-confirm");
+const registerbtn = document.querySelector("button");
 
-loginbtn.addEventListener("click", login);
 
-function login(){
+registerbtn.addEventListener("click", register);
+
+function register(){
     const req = {
         id : id.value,
+        name : name.value,
         password : password.value,
+        confirmPassword : confirmPassword.value,
     };
+    console.log(req);
 
 
-    fetch("/login", {
+    fetch("register", {
         method: "POST",
         headers: {
             "Content-Type" : "application/json"
@@ -22,13 +28,13 @@ function login(){
     }).then((res) => res.json())
       .then((res) => {
           if(res.success){
-              location.href = "/"
+              location.href = "/login"
           }
           else{
               alert(res.msg)
           }
       })
       .catch((err) => {
-          console.error(new Error("로그인중 에러발생"));
+          console.error(new Error("회원가입중 에러발생"));
       });
     }

@@ -1,4 +1,4 @@
-const UserStorage = require("../../models/UserStorage");
+const User = require("../../models/User");
 
 
 output = {
@@ -8,34 +8,31 @@ output = {
     
     login : (req, res) => {
         res.render("home/login");
+    },
+
+    register : (req, res) => {
+        res.render("home/register");
     }
     
 }
 
 
-
-
-
 deliver = {
-    login(req,res){
-        const id = req.body.id;
-        const password = req.body.password;
-        console.log(UserStorage.getUsers());
+    login : (req,res)=> {
+        const user = new User(req.body);
+        const response = user.login();
+        return res.json(response);
+    }, 
 
-        if (users.id.includes(id)){
-            const idx = users.id.indexOf(id);
-            if(password == users.password[idx]) {
-                return res.json({
-                    sucess:true
-                });
-            }
-        }
-        return res.json({
-            sucess:false,
-            msg: "로그인에 실패했습니다."
-        })
-    }
+    register : (req,res)=> {
+        const user = new User(req.body);
+        const response = user.register();
+        return res.json(response);
+    } 
+
 }
+
+
 
 
 
