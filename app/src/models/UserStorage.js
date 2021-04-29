@@ -1,38 +1,39 @@
 
-
+const fs = require("fs").promises;
 class UserStorage{
-    static #users= {
-        id:["홍서윤","힘들군","되면 좋겠다."],
-        password:["1234","1234","1234"],
-        name:["콩이","유재석","엠에스지"],
-        confirmPassword:["1234","1234","1234"],
-    }
+
 
     static getUsers(){
-        return this.#users;
+        //return this.#users;
     }
     
     static getUserinfo(id){
         var newUsers = new Object();
-        const users = this.#users;
-        newUsers = {
-            id : false,
-            password : false
-        }
-
-        if (users.id.includes(id)){
-            const idx = users.id.indexOf(id);
+        //const users = this.#users;
+        return fs.readFile("./src/databases/users.json")
+        .then((data) => {
+            const users = JSON.parse(data);
             newUsers = {
-                id : users.id[idx],
-                password : users.password[idx]
+                id : false,
+                password : false
             }
-        }
-        
-        return newUsers
+    
+            if (users.id.includes(id)){
+                const idx = users.id.indexOf(id);
+                newUsers = {
+                    id : users.id[idx],
+                    password : users.password[idx]
+                }
+            }
+            
+            return newUsers
+        })
+        .catch(console.error);
+
     }
 
     static save(userInfo){
-        const users = this.#users;
+        //const users = this.#users;
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.password.push(userInfo.password);

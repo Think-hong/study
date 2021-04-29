@@ -6,9 +6,10 @@ class User {
         this.body = body;
     }
 
-    login(){
+    async login(){
         const body = this.body
-        const{id, password} = UserStorage.getUserinfo(body.id);
+        const {id, password} = await UserStorage.getUserinfo(body.id);
+        console.log(id, password);
         if(id){
             if(password == body.password){
                 return {success : true};
