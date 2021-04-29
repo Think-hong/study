@@ -4,12 +4,15 @@ class UserStorage{
 
 
     static getUsers(){
-        //return this.#users;
+        return fs.readFile("./src/databases/users.json")
+        .then((data) => {
+            const users = JSON.parse(data);
+            return users
+        })
     }
     
     static getUserinfo(id){
         var newUsers = new Object();
-        //const users = this.#users;
         return fs.readFile("./src/databases/users.json")
         .then((data) => {
             const users = JSON.parse(data);
@@ -32,13 +35,15 @@ class UserStorage{
 
     }
 
-    static save(userInfo){
-        //const users = this.#users;
+    static async save(userInfo){
+        const users = await this.getUsers();
+        if(users.id.includes(userInfo.id)){
+            throw "이미 존재하는 아이디입니다.";
+        }
         users.id.push(userInfo.id);
         users.name.push(userInfo.name);
         users.password.push(userInfo.password);
-        users.confirmPassword.push(userInfo.confirmPassword);
-        console.log(users);
+        fs.writeFile("./src/databases/users.json",JSON.stringify(users));
         return { success : true };
 
     }

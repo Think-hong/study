@@ -9,7 +9,6 @@ class User {
     async login(){
         const body = this.body
         const {id, password} = await UserStorage.getUserinfo(body.id);
-        console.log(id, password);
         if(id){
             if(password == body.password){
                 return {success : true};
@@ -23,10 +22,14 @@ class User {
         }
     }
 
-    register(){
+    async register(){
         const body = this.body
-        const response = UserStorage.save(body);
+        try{
+        const response = await UserStorage.save(body);
         return response;
+        } catch(err){
+            return{ success : false, msg: err};
+        }
     }
 
 }

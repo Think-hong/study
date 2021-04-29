@@ -23,7 +23,6 @@ function register(){
         password : password.value,
         confirmPassword : confirmPassword.value,
     };
-    console.log(req);
 
 
     fetch("register", {
