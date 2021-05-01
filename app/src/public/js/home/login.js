@@ -6,7 +6,7 @@ const loginbtn = document.querySelector("button");
 
 loginbtn.addEventListener("click", login);
 
-function login(){
+async function login(){
     const req = {
         id : id.value,
         password : password.value,
@@ -19,8 +19,8 @@ function login(){
             "Content-Type" : "application/json"
         },
         body: JSON.stringify(req)
-    }).then((res) => res.json())
-      .then((res) => {
+    }).then (res => res.json())
+      .then(res => {
           if(res.success){
               location.href = "/"
           }
@@ -29,6 +29,6 @@ function login(){
           }
       })
       .catch((err) => {
-          console.error(new Error("로그인중 에러발생"));
+        alert("실패");
       });
     }

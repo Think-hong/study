@@ -6,11 +6,11 @@ class User {
         this.body = body;
     }
 
-    login(){
+    async login(){
         const body = this.body
-        const{id, password} = UserStorage.getUserinfo(body.id);
+        const{id, psword} = await UserStorage.getUserinfo(body.id);
         if(id){
-            if(password == body.password){
+            if(psword == body.password){
                 return {success : true};
             }
             else{
